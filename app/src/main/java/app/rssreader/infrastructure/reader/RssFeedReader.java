@@ -1,4 +1,4 @@
-package app.rssreader.application.logic.reader;
+package app.rssreader.infrastructure.reader;
 
 import androidx.annotation.NonNull;
 
@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import app.rssreader.application.logic.reader.exception.NoRssContentException;
-import app.rssreader.application.logic.reader.exception.RssMappingException;
+import app.rssreader.infrastructure.reader.exception.NoRssContentException;
+import app.rssreader.infrastructure.reader.exception.RssMappingException;
 import app.rssreader.domain.dto.rss.Rss;
 import app.rssreader.domain.reader.RssReader;
 import okhttp3.Call;

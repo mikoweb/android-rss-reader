@@ -1,4 +1,4 @@
-package app.rssreader.application.logic.reader.exception;
+package app.rssreader.infrastructure.reader.exception;
 
 public class NoRssContentException extends RuntimeException {
     public NoRssContentException() {
