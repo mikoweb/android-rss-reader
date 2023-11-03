@@ -10,12 +10,16 @@ import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
-import app.rssreader.infrastructure.reader.RssFeedReader;
-import app.rssreader.domain.dto.rss.Rss;
+import app.rssreader.domain.value.feed.FeedObject;
+import app.rssreader.infrastructure.query.GetFeedQuery;
 
 public class MainService {
+    private final GetFeedQuery getFeedQuery;
+
     @Inject
-    public MainService() {}
+    public MainService(GetFeedQuery getFeedQuery) {
+        this.getFeedQuery = getFeedQuery;
+    }
 
     public void main() throws ExecutionException, InterruptedException, JsonProcessingException {
         Log.d("Sample","Application started!");
@@ -24,11 +28,11 @@ public class MainService {
     }
 
     private void testRss() throws ExecutionException, InterruptedException, JsonProcessingException {
-        RssFeedReader reader = new RssFeedReader();
-        Rss rss = reader.read("https://wydarzenia.interia.pl/polska/feed");
+        FeedObject feed = getFeedQuery.getFeed("https://wydarzenia.interia.pl/polska/feed");
+        //FeedObject feed = getFeedQuery.getFeed("https://wiadomosci.wp.pl/rss.xml");
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String json = ow.writeValueAsString(rss);
+        String json = ow.writeValueAsString(feed);
 
         Log.i("Sample", "RSS Content:");
         Log.i("Sample", json);
