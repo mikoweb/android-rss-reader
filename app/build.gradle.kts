@@ -75,4 +75,8 @@ dependencies {
     implementation("javax.xml.stream:stax-api:1.0-2")
     compileOnly("org.projectlombok:lombok:1.18.30")
     annotationProcessor("org.projectlombok:lombok:1.18.30")
+    implementation("com.google.dagger:dagger-android:2.48.1")
+    implementation("com.google.dagger:dagger-android-support:2.48.1")
+    annotationProcessor("com.google.dagger:dagger-android-processor:2.48.1")
+    annotationProcessor("com.google.dagger:dagger-compiler:2.48.1")
 }

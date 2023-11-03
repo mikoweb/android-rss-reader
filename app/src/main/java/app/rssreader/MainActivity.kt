@@ -10,10 +10,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import app.rssreader.application.MainService
 import app.rssreader.ui.theme.RSSReaderTheme
+import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
+    @Inject lateinit var main: MainService
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        (applicationContext as MainApplication).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
         setContent {
             RSSReaderTheme {
@@ -23,6 +29,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Greeting("Android")
+                    main.main()
                 }
             }
         }
