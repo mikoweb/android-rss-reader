@@ -83,4 +83,5 @@ dependencies {
     annotationProcessor("com.google.dagger:dagger-android-processor:2.48.1")
     annotationProcessor("com.google.dagger:dagger-compiler:2.48.1")
     implementation("commons-validator:commons-validator:1.7")
+    implementation("io.coil-kt:coil-compose:2.5.0")
 }
