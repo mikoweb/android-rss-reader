@@ -11,7 +11,14 @@ class RssItemsSectionViewModel @Inject constructor() : AppViewModel() {
     var feedObject: FeedObject? by mutableStateOf(null)
         private set
 
+    var loading by mutableStateOf(false)
+        private set
+
     fun updateFeedObject(input: FeedObject?) {
         feedObject = input
+    }
+
+    fun updateLoading(input: Boolean) {
+        loading = input
     }
 }

@@ -4,6 +4,8 @@ import android.content.Context;
 
 import org.apache.commons.validator.routines.UrlValidator;
 
+import java.util.concurrent.CompletableFuture;
+
 import javax.inject.Inject;
 
 import app.rssreader.application.logic.toast.ToastService;
@@ -24,30 +26,29 @@ public class LoadRssFeedCommand {
         this.rssItemsSectionViewModel = rssItemsSectionViewModel;
     }
 
-    public boolean run(Context context, String url) {
+    public void run(Context context, String url) {
         update(null);
         UrlValidator validator = new UrlValidator();
 
         if (!validator.isValid(url)) {
             showInvalidUrlMessage(context);
-            return false;
+            return;
         }
 
-        FeedObject feed = null;
-
-        try {
-            feed = getFeedQuery.getFeed(url);
-        } catch (IllegalArgumentException exception) {
-            this.showInvalidUrlMessage(context);
-        } catch (Throwable throwable) {
-            this.showFailRssMessage(context);
-        }
-
-        if (feed != null) {
-            update(feed);
-        }
-
-        return feed != null;
+        rssItemsSectionViewModel.updateLoading(true);
+        CompletableFuture.runAsync(() -> {
+            try {
+                FeedObject feed = getFeedQuery.getFeed(url);
+                update(feed);
+                rssItemsSectionViewModel.updateLoading(false);
+            } catch (IllegalArgumentException exception) {
+                this.showInvalidUrlMessage(context);
+            } catch (Throwable throwable) {
+                this.showFailRssMessage(context);
+            } finally {
+                rssItemsSectionViewModel.updateLoading(false);
+            }
+        });
     }
 
     private void update(FeedObject feed) {

@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import javax.inject.Inject;
+
 import app.rssreader.infrastructure.reader.exception.NoRssContentException;
 import app.rssreader.infrastructure.reader.exception.RssMappingException;
 import app.rssreader.domain.dto.rss.Rss;
@@ -26,6 +28,7 @@ public class RssFeedReader implements RssReader {
     private abstract static class RssResponseCallback extends CompletableFuture<String> implements Callback {
     }
 
+    @Inject
     public RssFeedReader() {
         this.client = new OkHttpClient();
         this.objectMapper = new XmlMapper();
