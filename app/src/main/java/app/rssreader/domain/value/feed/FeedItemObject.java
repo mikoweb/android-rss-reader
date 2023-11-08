@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class FeedItemObject {
-    private String title;
-    private String description;
-    private String link;
-    private String image;
+    public String title;
+    public String description;
+    public String link;
+    public String image;
 
     public FeedItemObject(String title, String description, String link, String image) {
         this.title = title;

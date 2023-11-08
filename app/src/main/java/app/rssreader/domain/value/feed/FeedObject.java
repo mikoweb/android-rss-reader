@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class FeedObject {
-    private FeedDetailsObject details;
-    private List<FeedItemObject> items;
+    public FeedDetailsObject details;
+    public List<FeedItemObject> items;
 
     public FeedObject(FeedDetailsObject details, List<FeedItemObject> items) {
         this.details = details;
