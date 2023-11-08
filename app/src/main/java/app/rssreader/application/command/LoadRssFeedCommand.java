@@ -1,11 +1,6 @@
 package app.rssreader.application.command;
 
 import android.content.Context;
-import android.util.Log;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 
 import org.apache.commons.validator.routines.UrlValidator;
 
@@ -14,16 +9,23 @@ import javax.inject.Inject;
 import app.rssreader.application.logic.toast.ToastService;
 import app.rssreader.domain.value.feed.FeedObject;
 import app.rssreader.infrastructure.query.GetFeedQuery;
+import app.rssreader.ui.theme.section.RssItemsSectionViewModel;
 
 public class LoadRssFeedCommand {
     private final GetFeedQuery getFeedQuery;
+    private final RssItemsSectionViewModel rssItemsSectionViewModel;
 
     @Inject
-    public LoadRssFeedCommand(GetFeedQuery getFeedQuery) {
+    public LoadRssFeedCommand(
+        GetFeedQuery getFeedQuery,
+        RssItemsSectionViewModel rssItemsSectionViewModel
+    ) {
         this.getFeedQuery = getFeedQuery;
+        this.rssItemsSectionViewModel = rssItemsSectionViewModel;
     }
 
-    public boolean run(Context context, String url) throws JsonProcessingException {
+    public boolean run(Context context, String url) {
+        update(null);
         UrlValidator validator = new UrlValidator();
 
         if (!validator.isValid(url)) {
@@ -34,9 +36,6 @@ public class LoadRssFeedCommand {
         FeedObject feed = null;
 
         try {
-            // TODO remove
-            // feed = getFeedQuery.getFeed("https://wydarzenia.interia.pl/polska/feed");
-            // feed = getFeedQuery.getFeed("https://wiadomosci.wp.pl/rss.xml");
             feed = getFeedQuery.getFeed(url);
         } catch (IllegalArgumentException exception) {
             this.showInvalidUrlMessage(context);
@@ -45,16 +44,14 @@ public class LoadRssFeedCommand {
         }
 
         if (feed != null) {
-            // TODO load items
-
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            String json = ow.writeValueAsString(feed);
-
-            Log.i("Sample", "RSS Content:");
-            Log.i("Sample", json);
+            update(feed);
         }
 
         return feed != null;
+    }
+
+    private void update(FeedObject feed) {
+        this.rssItemsSectionViewModel.updateFeedObject(feed);
     }
 
     private void showInvalidUrlMessage(Context context) {
