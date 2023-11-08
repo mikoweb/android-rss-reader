@@ -19,8 +19,6 @@ class MainActivity : ComponentActivity() {
 
         super.onCreate(savedInstanceState)
 
-        Log.i("Sample", "LOAD ACTIVITY")
-
         setContent {
             AppLayout()
         }
