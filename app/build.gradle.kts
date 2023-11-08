@@ -50,7 +50,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
@@ -58,6 +58,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.appcompat:appcompat:1.6.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -72,7 +73,7 @@ dependencies {
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.11.0"))
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.0.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.3")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.3")
     implementation("javax.xml.stream:stax-api:1.0-2")
     compileOnly("org.projectlombok:lombok:1.18.30")
@@ -81,4 +82,5 @@ dependencies {
     implementation("com.google.dagger:dagger-android-support:2.48.1")
     annotationProcessor("com.google.dagger:dagger-android-processor:2.48.1")
     annotationProcessor("com.google.dagger:dagger-compiler:2.48.1")
+    implementation("commons-validator:commons-validator:1.7")
 }
