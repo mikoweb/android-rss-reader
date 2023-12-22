@@ -15,13 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.rssreader.application.logic.viewmodel.ViewModelMap
-import app.rssreader.ui.theme.element.AppRssTextBox
 import app.rssreader.ui.theme.layout.AppDrawer
 import app.rssreader.ui.theme.layout.AppFooter
 import app.rssreader.ui.theme.layout.AppHeader
 import app.rssreader.ui.theme.layout.DrawerViewModel
 import app.rssreader.ui.theme.layout.appDrawerState
-import app.rssreader.ui.theme.section.AppRssItemsSection
+import app.rssreader.ui.theme.router.AppRouter
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,8 +48,7 @@ fun AppTheme() {
                             .verticalScroll(rememberScrollState()),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        AppRssTextBox()
-                        AppRssItemsSection()
+                        AppRouter()
                     }
                 }
             }
