@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.rssreader.ui.theme.element.AppRssTextBox
+import app.rssreader.ui.theme.layout.AppFooter
 import app.rssreader.ui.theme.layout.AppHeader
 import app.rssreader.ui.theme.section.AppRssItemsSection
 
@@ -26,8 +27,11 @@ fun AppTheme() {
         Scaffold(
             topBar = {
                 AppHeader()
-            }
-        ) { innerPadding ->
+            },
+            bottomBar = {
+                AppFooter()
+            },
+            ) { innerPadding ->
             Column(
                 modifier = Modifier
                     .padding(innerPadding)
