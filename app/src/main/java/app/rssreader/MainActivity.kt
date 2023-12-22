@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import app.rssreader.ui.theme.AppTheme
 import app.rssreader.ui.theme.element.RssTextBoxViewModel
+import app.rssreader.ui.theme.layout.DrawerViewModel
 import app.rssreader.ui.theme.section.RssItemsSectionViewModel
 import javax.inject.Inject
 
@@ -16,6 +17,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var rssItemsSectionViewModel: RssItemsSectionViewModel;
+
+    @Inject
+    lateinit var drawerViewModel: DrawerViewModel;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (applicationContext as MainApplication).appComponent.inject(this)
