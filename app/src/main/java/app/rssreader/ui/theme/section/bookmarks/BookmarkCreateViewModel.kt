@@ -14,6 +14,9 @@ class BookmarkCreateViewModel @Inject constructor() : AppViewModel() {
     @Inject
     lateinit var addBookmarkCommand: AddBookmarkCommand
 
+    var isTouched: Boolean by mutableStateOf(false)
+        private set
+
     var isValid: Boolean by mutableStateOf(false)
         private set
 
@@ -47,8 +50,13 @@ class BookmarkCreateViewModel @Inject constructor() : AppViewModel() {
     }
 
     fun reset() {
+        setTouchedValue(false)
         updateUrl("")
         updateName("")
+    }
+
+    fun setTouchedValue(touched: Boolean) {
+        isTouched = touched
     }
 
     private fun getUrlIsValidValue(): Boolean {

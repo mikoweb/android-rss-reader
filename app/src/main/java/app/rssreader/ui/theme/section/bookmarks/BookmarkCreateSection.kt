@@ -7,6 +7,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.tooling.preview.Preview
 import app.rssreader.application.logic.viewmodel.ViewModelMap
 import app.rssreader.ui.theme.MessageViewModel
@@ -25,23 +26,27 @@ fun AppBookmarkCreateSection() {
         AppMainHeading("Tworzenie zakładki")
         AppFormGroup {
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onFocusChanged { viewModel.setTouchedValue(true) },
                 value = viewModel.name,
                 onValueChange = { viewModel.updateName(it) },
                 label = { Text("Nazwa zakładki") },
                 singleLine = true,
-                isError = !viewModel.nameIsValid
+                isError = !viewModel.nameIsValid && viewModel.isTouched
             )
         }
         AppFormGroup {
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onFocusChanged { viewModel.setTouchedValue(true) },
                 value = viewModel.url,
                 onValueChange = { viewModel.updateUrl(it) },
                 label = { Text("Adres RSS") },
                 placeholder = { Text("Podaj URL kanału RSS...") },
                 singleLine = true,
-                isError = !viewModel.urlIsValid
+                isError = !viewModel.urlIsValid && viewModel.isTouched
             )
         }
         AppFormGroup {
