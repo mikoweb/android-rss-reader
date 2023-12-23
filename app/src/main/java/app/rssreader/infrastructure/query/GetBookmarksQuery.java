@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -30,5 +31,11 @@ public class GetBookmarksQuery {
         } catch (IOException exception) {
             return new ArrayList<>();
         }
+    }
+
+    public Optional<BookmarkItemDto> findOneById(ArrayList<BookmarkItemDto> list, String id) {
+        return list.stream()
+            .filter(bookmark -> bookmark.getId().equals(id))
+            .findAny();
     }
 }

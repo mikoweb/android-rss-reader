@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.rssreader.application.logic.viewmodel.ViewModelMap
+import app.rssreader.ui.theme.MessageViewModel
 import app.rssreader.ui.theme.element.AppMainContainer
 import app.rssreader.ui.theme.element.AppMainHeading
 import app.rssreader.ui.theme.element.RssTextBoxViewModel
@@ -31,6 +32,7 @@ fun AppBookmarkListSection() {
     val viewModel = ViewModelMap.get(BookmarkListViewModel::class.java) as BookmarkListViewModel
     val drawerViewModel = ViewModelMap.get(DrawerViewModel::class.java) as DrawerViewModel
     val rssTextBoxViewModel = ViewModelMap.get(RssTextBoxViewModel::class.java) as RssTextBoxViewModel
+    val messageViewModel = ViewModelMap.get(MessageViewModel::class.java) as MessageViewModel
     val bookmarks = viewModel.list
 
     AppMainContainer {
@@ -56,7 +58,14 @@ fun AppBookmarkListSection() {
                             }
                         },
                         trailingContent = {
-                            IconButton(onClick = {}) {
+                            IconButton(onClick = {
+                                try {
+                                    viewModel.deleteAction(bookmark.id)
+                                    messageViewModel.createSuccess("Zakładka została usunięta")
+                                } catch (throwable: Throwable) {
+                                    messageViewModel.createError("Nie udało się usunąć zakładki!")
+                                }
+                            }) {
                                 Icon(Icons.Outlined.Delete, contentDescription = "Usuń")
                             }
                         },
