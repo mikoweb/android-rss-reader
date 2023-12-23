@@ -25,36 +25,33 @@ class BookmarkCreateViewModel @Inject constructor() : AppViewModel() {
 
     fun updateUrl(input: String) {
         url = input
-        updateUrlIsValid()
+        urlIsValid = getUrlIsValidValue()
+        updateIsValid()
     }
 
     fun updateName(input: String) {
         name = input
-        updateNameIsValid()
+        nameIsValid = getNameIsValidValue()
+        updateIsValid()
     }
 
-    fun submit() {
-        reset()
-    }
+    fun submit() {}
 
     fun reset() {
-        isValid = false
-        name = ""
-        url = ""
+        updateUrl("")
+        updateName("")
     }
 
-    private fun updateUrlIsValid() {
+    private fun getUrlIsValidValue(): Boolean {
         val validator = UrlValidator()
-        urlIsValid = url.isNotEmpty() && validator.isValid(url)
-        updateIsValid()
+        return url.isNotEmpty() && validator.isValid(url)
     }
 
-    private fun updateNameIsValid() {
-        nameIsValid = name.isNotEmpty()
-        updateIsValid()
+    private fun getNameIsValidValue(): Boolean {
+        return name.isNotEmpty()
     }
 
     private fun updateIsValid() {
-        isValid = nameIsValid && urlIsValid
+        isValid = getUrlIsValidValue() && getNameIsValidValue()
     }
 }
