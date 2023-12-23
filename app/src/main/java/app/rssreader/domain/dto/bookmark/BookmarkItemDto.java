@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @JacksonXmlRootElement
 @NoArgsConstructor
 public class BookmarkItemDto {
-    private String id;
-    private String name;
-    private String url;
+    public String id;
+    public String name;
+    public String url;
 
     public BookmarkItemDto(String id, String name, String url) {
         this.id = id;

@@ -1,29 +1,28 @@
 package app.rssreader.application.command;
 
-import android.util.Log;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import app.rssreader.domain.dto.bookmark.BookmarkItemDto;
 import app.rssreader.infrastructure.query.GetBookmarksQuery;
+import app.rssreader.ui.theme.section.bookmarks.BookmarkListViewModel;
 
 public class LoadBookmarksCommand {
     private final GetBookmarksQuery getBookmarksQuery;
+    private final BookmarkListViewModel bookmarkListViewModel;
 
     @Inject
-    public LoadBookmarksCommand(GetBookmarksQuery getBookmarksQuery) {
+    public LoadBookmarksCommand(
+        GetBookmarksQuery getBookmarksQuery,
+        BookmarkListViewModel bookmarkListViewModel
+    ) {
         this.getBookmarksQuery = getBookmarksQuery;
+        this.bookmarkListViewModel = bookmarkListViewModel;
     }
 
-    public void run() throws JsonProcessingException {
-        // TODO
+    public void run() {
         ArrayList<BookmarkItemDto> list = getBookmarksQuery.getBookmarksSafe();
-        ObjectMapper objectMapper = new ObjectMapper();
-        Log.i("APP_LOG", objectMapper.writeValueAsString(list));
+        bookmarkListViewModel.updateList(list);
     }
 }

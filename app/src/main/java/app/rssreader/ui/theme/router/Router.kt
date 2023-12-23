@@ -6,6 +6,7 @@ import app.rssreader.application.logic.viewmodel.ViewModelMap
 import app.rssreader.ui.theme.layout.DrawerViewModel
 import app.rssreader.ui.theme.section.AppMainSection
 import app.rssreader.ui.theme.section.bookmarks.AppBookmarkCreateSection
+import app.rssreader.ui.theme.section.bookmarks.AppBookmarkListSection
 
 @Composable
 @Preview
@@ -15,5 +16,6 @@ fun AppRouter() {
     when (drawerViewModel.selected) {
         "home" -> AppMainSection()
         "bookmarks_add" -> AppBookmarkCreateSection()
+        "bookmarks_list" -> AppBookmarkListSection()
     }
 }

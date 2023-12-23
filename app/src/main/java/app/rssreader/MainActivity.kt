@@ -13,6 +13,7 @@ import app.rssreader.ui.theme.element.RssTextBoxViewModel
 import app.rssreader.ui.theme.layout.DrawerViewModel
 import app.rssreader.ui.theme.section.RssItemsSectionViewModel
 import app.rssreader.ui.theme.section.bookmarks.BookmarkCreateViewModel
+import app.rssreader.ui.theme.section.bookmarks.BookmarkListViewModel
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
@@ -30,6 +31,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var bookmarkCreateViewModel: BookmarkCreateViewModel
+
+    @Inject
+    lateinit var bookmarkListViewModel: BookmarkListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (applicationContext as MainApplication).appComponent.inject(this)
