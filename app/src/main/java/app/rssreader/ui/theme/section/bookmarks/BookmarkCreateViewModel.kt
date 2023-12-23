@@ -34,6 +34,13 @@ class BookmarkCreateViewModel @Inject constructor() : AppViewModel() {
     }
 
     fun submit() {
+        reset()
+    }
+
+    fun reset() {
+        isValid = false
+        name = ""
+        url = ""
     }
 
     private fun updateUrlIsValid() {
