@@ -73,6 +73,7 @@ fun AppDrawer(content: @Composable () -> Unit) {
                         label = { Text(text = "Lista zakładek") },
                         selected = drawerViewModel.selected == "bookmarks_list",
                         onClick = {
+                            drawerViewModel.listAction()
                             itemCommonClick("bookmarks_list")
                         }
                     )

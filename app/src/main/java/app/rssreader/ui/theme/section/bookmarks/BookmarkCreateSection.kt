@@ -48,9 +48,13 @@ fun AppBookmarkCreateSection() {
             Button(
                 enabled = viewModel.isValid,
                 onClick = {
-                    viewModel.submit()
-                    viewModel.reset()
-                    messageViewModel.createSuccess("Utworzono zakładkę")
+                    try {
+                        viewModel.submit()
+                        messageViewModel.createSuccess("Utworzono zakładkę")
+                    } catch (throwable: Throwable) {
+                        messageViewModel.createError("Nie udało się zapisać zakładki!")
+                        viewModel.reset()
+                    }
                 }
             ) {
                 Text("Utwórz")

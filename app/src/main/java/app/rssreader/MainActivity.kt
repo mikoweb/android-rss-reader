@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
+import app.rssreader.application.config.AppConfig
 import app.rssreader.ui.theme.AppTheme
 import app.rssreader.ui.theme.MessageViewModel
 import app.rssreader.ui.theme.element.RssTextBoxViewModel
@@ -32,6 +33,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (applicationContext as MainApplication).appComponent.inject(this)
+        setConfig()
 
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -39,6 +41,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppLayout()
         }
+    }
+
+    private fun setConfig() {
+        AppConfig.setBookmarksFilePath(
+            applicationContext.getFileStreamPath("rss_reader_bookmarks.json")
+        )
     }
 }
 

@@ -3,11 +3,17 @@ package app.rssreader.ui.theme.section.bookmarks
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import app.rssreader.application.command.AddBookmarkCommand
 import app.rssreader.application.logic.viewmodel.AppViewModel
+import app.rssreader.domain.dto.bookmark.BookmarkItemDto
 import org.apache.commons.validator.routines.UrlValidator
+import java.util.UUID
 import javax.inject.Inject
 
 class BookmarkCreateViewModel @Inject constructor() : AppViewModel() {
+    @Inject
+    lateinit var addBookmarkCommand: AddBookmarkCommand
+
     var isValid: Boolean by mutableStateOf(false)
         private set
 
@@ -35,7 +41,10 @@ class BookmarkCreateViewModel @Inject constructor() : AppViewModel() {
         updateIsValid()
     }
 
-    fun submit() {}
+    fun submit() {
+        addBookmarkCommand.run(BookmarkItemDto(UUID.randomUUID().toString(), name, url))
+        reset()
+    }
 
     fun reset() {
         updateUrl("")
