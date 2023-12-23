@@ -20,7 +20,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.rssreader.application.logic.viewmodel.ViewModelMap
+import app.rssreader.ui.theme.section.bookmarks.BookmarkCreateViewModel
 import kotlinx.coroutines.launch
+import java.util.Timer
+import kotlin.concurrent.timerTask
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,6 +35,7 @@ fun appDrawerState(): DrawerState {
 @Composable
 fun AppDrawer(content: @Composable () -> Unit) {
     val drawerViewModel = ViewModelMap.get(DrawerViewModel::class.java) as DrawerViewModel
+    val bookmarkCreateViewModel = ViewModelMap.get(BookmarkCreateViewModel::class.java) as BookmarkCreateViewModel
     val scope = rememberCoroutineScope()
 
     fun itemCommonClick(selected: String) {
@@ -66,6 +70,10 @@ fun AppDrawer(content: @Composable () -> Unit) {
                         selected = drawerViewModel.selected == "bookmarks_add",
                         onClick = {
                             itemCommonClick("bookmarks_add")
+                            bookmarkCreateViewModel.reset()
+                            Timer().schedule(timerTask {
+                                bookmarkCreateViewModel.reset()
+                            }, 100)
                         }
                     )
                     NavigationDrawerItem(
