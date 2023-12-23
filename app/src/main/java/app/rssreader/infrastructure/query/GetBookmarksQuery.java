@@ -38,4 +38,10 @@ public class GetBookmarksQuery {
             .filter(bookmark -> bookmark.getId().equals(id))
             .findAny();
     }
+
+    public Optional<BookmarkItemDto> findOneByUrl(ArrayList<BookmarkItemDto> list, String url) {
+        return list.stream()
+                .filter(bookmark -> bookmark.getUrl().equals(url))
+                .findAny();
+    }
 }

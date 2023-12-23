@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
@@ -20,6 +21,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.rssreader.application.logic.viewmodel.ViewModelMap
+import app.rssreader.ui.theme.MessageViewModel
 import app.rssreader.ui.theme.section.bookmarks.BookmarkCreateViewModel
 import kotlinx.coroutines.launch
 import java.util.Timer
@@ -37,6 +39,7 @@ fun AppDrawer(content: @Composable () -> Unit) {
     val drawerViewModel = ViewModelMap.get(DrawerViewModel::class.java) as DrawerViewModel
     val bookmarkCreateViewModel = ViewModelMap.get(BookmarkCreateViewModel::class.java) as BookmarkCreateViewModel
     val scope = rememberCoroutineScope()
+    val messageViewModel = ViewModelMap.get(MessageViewModel::class.java) as MessageViewModel
 
     fun itemCommonClick(selected: String) {
         drawerViewModel.changeSelected(selected)
@@ -81,6 +84,22 @@ fun AppDrawer(content: @Composable () -> Unit) {
                         label = { Text(text = "Lista zakładek") },
                         selected = drawerViewModel.selected == "bookmarks_list",
                         onClick = {
+                            drawerViewModel.listAction()
+                            itemCommonClick("bookmarks_list")
+                        }
+                    )
+                    NavigationDrawerItem(
+                        icon = { Icon(imageVector = Icons.Filled.Refresh, contentDescription = "") },
+                        label = { Text(text = "Załaduj przykładowe zakładki") },
+                        selected = false,
+                        onClick = {
+                            try {
+                                drawerViewModel.loadSampleBookmarksCommand.run()
+                                messageViewModel.createSuccess("Załadowano przykładowe zakładki!")
+                            } catch (throwable: Throwable) {
+                                messageViewModel.createError("Nie udało się załodować przykładowych zakładek!")
+                            }
+
                             drawerViewModel.listAction()
                             itemCommonClick("bookmarks_list")
                         }
