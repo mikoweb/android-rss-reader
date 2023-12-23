@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import app.rssreader.ui.theme.AppTheme
 import app.rssreader.ui.theme.MessageViewModel
 import app.rssreader.ui.theme.element.RssTextBoxViewModel
@@ -33,6 +34,7 @@ class MainActivity : ComponentActivity() {
         (applicationContext as MainApplication).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
             AppLayout()

@@ -3,6 +3,9 @@ package app.rssreader.ui.theme
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -43,22 +46,26 @@ fun AppTheme() {
     messageViewModel.warningMessage = remember { SnackbarHostState() }
     messageViewModel.infoMessage = remember { SnackbarHostState() }
 
+    val snackbarModifier = Modifier
+        .padding(vertical = 5.dp, horizontal = 0.dp)
+        .padding(WindowInsets.ime.asPaddingValues())
+
     MaterialTheme {
         Surface {
             AppDrawer {
                 Scaffold(
                     snackbarHost = {
                         SnackbarHost(messageViewModel.successMessage!!) { data ->
-                            Snackbar(containerColor = Color(0xFF7CB342), snackbarData = data)
+                            Snackbar(containerColor = Color(0xFF7CB342), snackbarData = data, modifier = snackbarModifier)
                         }
                         SnackbarHost(messageViewModel.errorMessage!!) { data ->
-                            Snackbar(containerColor = Color(0xFFE53935), snackbarData = data)
+                            Snackbar(containerColor = Color(0xFFE53935), snackbarData = data, modifier = snackbarModifier)
                         }
                         SnackbarHost(messageViewModel.warningMessage!!) { data ->
-                            Snackbar(containerColor = Color(0xFFF9A825), snackbarData = data)
+                            Snackbar(containerColor = Color(0xFFF9A825), snackbarData = data, modifier = snackbarModifier)
                         }
                         SnackbarHost(messageViewModel.infoMessage!!) { data ->
-                            Snackbar(containerColor = Color(0xFF00BCD4), snackbarData = data)
+                            Snackbar(containerColor = Color(0xFF00BCD4), snackbarData = data, modifier = snackbarModifier)
                         }
                     },
                     topBar = {
