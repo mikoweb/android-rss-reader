@@ -25,7 +25,7 @@ class MessageViewModel @Inject constructor() : AppViewModel() {
     var infoMessage: SnackbarHostState? by mutableStateOf(null)
 
     fun createSuccess(message: String, withDismissAction: Boolean = true) {
-        lastSuccess?.cancel()
+        closeAll()
         lastSuccess = scope?.launch {
             successMessage?.showSnackbar(
                 message = message,
@@ -36,7 +36,7 @@ class MessageViewModel @Inject constructor() : AppViewModel() {
     }
 
     fun createError(message: String, withDismissAction: Boolean = true) {
-        lastError?.cancel()
+        closeAll()
         lastError = scope?.launch {
             errorMessage?.showSnackbar(
                 message = message,
@@ -47,6 +47,7 @@ class MessageViewModel @Inject constructor() : AppViewModel() {
     }
 
     fun createWarning(message: String, withDismissAction: Boolean = true) {
+        closeAll()
         lastWarning?.cancel()
         lastWarning = scope?.launch {
             warningMessage?.showSnackbar(
@@ -58,7 +59,7 @@ class MessageViewModel @Inject constructor() : AppViewModel() {
     }
 
     fun createInfo(message: String, withDismissAction: Boolean = true) {
-        lastInfo?.cancel()
+        closeAll()
         lastInfo = scope?.launch {
             infoMessage?.showSnackbar(
                 message = message,
@@ -66,5 +67,12 @@ class MessageViewModel @Inject constructor() : AppViewModel() {
                 duration = duration
             )
         }
+    }
+
+    fun closeAll() {
+        lastSuccess?.cancel()
+        lastError?.cancel()
+        lastWarning?.cancel()
+        lastInfo?.cancel()
     }
 }

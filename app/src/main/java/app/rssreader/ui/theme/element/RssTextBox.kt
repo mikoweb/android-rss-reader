@@ -27,6 +27,7 @@ fun AppRssTextBox() {
         onValueChange = {
             try {
                 viewModel.updateUrl(it)
+                messageViewModel.closeAll()
             } catch (exception: IllegalArgumentException) {
                 messageViewModel.createError("Nieprawidłowy adres!")
             } catch (throwable: Throwable) {
