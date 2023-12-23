@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import app.rssreader.ui.theme.AppTheme
+import app.rssreader.ui.theme.MessageViewModel
 import app.rssreader.ui.theme.element.RssTextBoxViewModel
 import app.rssreader.ui.theme.layout.DrawerViewModel
 import app.rssreader.ui.theme.section.RssItemsSectionViewModel
@@ -13,6 +14,9 @@ import app.rssreader.ui.theme.section.bookmarks.BookmarkCreateViewModel
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var messageViewModel: MessageViewModel
+
     @Inject
     lateinit var rssTextBoxViewModel: RssTextBoxViewModel
 

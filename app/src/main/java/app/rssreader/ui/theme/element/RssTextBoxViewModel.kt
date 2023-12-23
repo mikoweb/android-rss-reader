@@ -1,6 +1,5 @@
 package app.rssreader.ui.theme.element
 
-import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -15,8 +14,8 @@ class RssTextBoxViewModel @Inject constructor() : AppViewModel() {
     var url by mutableStateOf("")
         private set
 
-    fun updateUrl(context: Context, input: String) {
+    fun updateUrl(input: String) {
         url = input
-        loadRssFeedCommand.run(context, url)
+        loadRssFeedCommand.run(url)
     }
 }
