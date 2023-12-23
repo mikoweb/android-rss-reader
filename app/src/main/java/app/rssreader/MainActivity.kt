@@ -9,17 +9,21 @@ import app.rssreader.ui.theme.AppTheme
 import app.rssreader.ui.theme.element.RssTextBoxViewModel
 import app.rssreader.ui.theme.layout.DrawerViewModel
 import app.rssreader.ui.theme.section.RssItemsSectionViewModel
+import app.rssreader.ui.theme.section.bookmarks.BookmarkCreateViewModel
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
     @Inject
-    lateinit var rssTextBoxViewModel: RssTextBoxViewModel;
+    lateinit var rssTextBoxViewModel: RssTextBoxViewModel
 
     @Inject
-    lateinit var rssItemsSectionViewModel: RssItemsSectionViewModel;
+    lateinit var rssItemsSectionViewModel: RssItemsSectionViewModel
 
     @Inject
-    lateinit var drawerViewModel: DrawerViewModel;
+    lateinit var drawerViewModel: DrawerViewModel
+
+    @Inject
+    lateinit var bookmarkCreateViewModel: BookmarkCreateViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (applicationContext as MainApplication).appComponent.inject(this)

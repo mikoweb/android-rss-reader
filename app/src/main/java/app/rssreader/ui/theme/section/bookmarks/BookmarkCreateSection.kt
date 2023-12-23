@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import app.rssreader.application.logic.viewmodel.ViewModelMap
 import app.rssreader.ui.theme.element.AppFormGroup
 import app.rssreader.ui.theme.element.AppMainContainer
 import app.rssreader.ui.theme.element.AppMainHeading
@@ -16,29 +17,36 @@ import app.rssreader.ui.theme.element.AppMainHeading
 @Composable
 @Preview
 fun AppBookmarkCreateSection() {
+    val viewModel = ViewModelMap.get(BookmarkCreateViewModel::class.java) as BookmarkCreateViewModel
+
     AppMainContainer {
         AppMainHeading("Tworzenie zakładki")
         AppFormGroup {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = "",
-                onValueChange = {},
+                value = viewModel.name,
+                onValueChange = { viewModel.updateName(it) },
                 label = { Text("Nazwa zakładki") },
-                singleLine = true
+                singleLine = true,
+                isError = !viewModel.nameIsValid
             )
         }
         AppFormGroup {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = "",
-                onValueChange = {},
+                value = viewModel.url,
+                onValueChange = { viewModel.updateUrl(it) },
                 label = { Text("Adres RSS") },
                 placeholder = { Text("Podaj URL kanału RSS...") },
-                singleLine = true
+                singleLine = true,
+                isError = !viewModel.urlIsValid
             )
         }
         AppFormGroup {
-            Button(onClick = {}) {
+            Button(
+                enabled = viewModel.isValid,
+                onClick = { viewModel.submit() }
+            ) {
                 Text("Utwórz")
             }
         }
