@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import app.rssreader.application.config.AppConfig
+import app.rssreader.infrastructure.persistence.BookmarkPersistence
 import app.rssreader.ui.theme.AppTheme
 import app.rssreader.ui.theme.MessageViewModel
 import app.rssreader.ui.theme.element.RssTextBoxViewModel
@@ -17,6 +18,9 @@ import app.rssreader.ui.theme.section.bookmarks.BookmarkListViewModel
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var bookmarkPersistence: BookmarkPersistence
+
     @Inject
     lateinit var messageViewModel: MessageViewModel
 
@@ -38,6 +42,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         (applicationContext as MainApplication).appComponent.inject(this)
         setConfig()
+        bookmarkPersistence.initStorage()
 
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)

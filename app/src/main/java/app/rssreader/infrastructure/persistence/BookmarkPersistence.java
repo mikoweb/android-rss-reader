@@ -2,7 +2,9 @@ package app.rssreader.infrastructure.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -45,5 +47,22 @@ public class BookmarkPersistence {
 
     public void save(ArrayList<BookmarkItemDto> list) throws IOException {
         objectMapper.writeValue(bookmarksPath.getPath(), list);
+    }
+
+    public void initStorage() throws IOException {
+        File file = bookmarksPath.getPath();
+
+        if (!file.exists() || isBrokenData()) {
+            Files.write(file.toPath(), "[]".getBytes());
+        }
+    }
+
+    private boolean isBrokenData() {
+        try {
+            getBookmarksQuery.getBookmarks();
+            return false;
+        } catch (IOException exception) {
+            return true;
+        }
     }
 }
